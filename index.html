@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#241014">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Spartans. AC">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/spartans-logo.png">
+<link rel="icon" href="assets/spartans-logo.png">
+<script src="./support.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+}
+</script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="stylesheet" href="_ds/nocturne-0d1c9117-2a45-4076-acc7-70b7d4d09f27/styles.css">
+<script src="_ds/nocturne-0d1c9117-2a45-4076-acc7-70b7d4d09f27/_ds_bundle.js"></script>
+<style>*{box-sizing:border-box}body{margin:0}</style>
+</helmet>
+<div style="min-height:100vh;background:#12131d;display:flex;flex-direction:column;align-items:center;padding:clamp(20px, 6vw, 56px) 16px 40px;box-sizing:border-box;width:100%;overflow-x:hidden;">
+  <div style="max-width:402px;width:100%;margin-bottom:24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <img src="assets/spartans-logo.png" alt="Spartans Academy" style="width:44px;height:44px;object-fit:contain;flex:none;"/>
+    <div>
+      <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#c9a227;margin-bottom:4px;">Spartans Academy · Track &amp; Field</div>
+      <div style="font-family:var(--font-heading);font-size:24px;font-weight:var(--font-heading-weight);color:var(--color-text);letter-spacing:-0.015em;">Spartans. AC</div>
+    </div>
+  </div>
+
+  <div style="width:100%;display:flex;justify-content:center;zoom:min(1, calc(94vw / 402px));">
+  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="402,874">
+    <div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);overflow:hidden;
+      --color-bg:#241014; --color-surface:#33181d; --color-text:#f5ede1; --color-divider:color-mix(in srgb, #c9a227 26%, transparent);
+      --color-neutral-100:#f5f1e6; --color-neutral-200:#e3ddcc; --color-neutral-300:#cbb9a8; --color-neutral-400:#ac8f8a;
+      --color-neutral-500:#8f6d68; --color-neutral-600:#6e504c; --color-neutral-700:#553b38; --color-neutral-800:#402a28; --color-neutral-900:#2c1a19;
+      --color-accent:#d4af37; --color-accent-100:#fdf6e3; --color-accent-200:#f5e6b8; --color-accent-300:#ecd48a; --color-accent-400:#ddbc55;
+      --color-accent-500:#d4af37; --color-accent-600:#b3901f; --color-accent-700:#8a6f19; --color-accent-800:#4a3a13; --color-accent-900:#2e230c;
+      --color-accent-2:#9c2f3e; --color-accent-2-100:#fbe4e7; --color-accent-2-200:#f0b8c0; --color-accent-2-300:#e08a97; --color-accent-2-400:#c15866;
+      --color-accent-2-500:#9c2f3e; --color-accent-2-600:#7a2331; --color-accent-2-700:#5c1a25; --color-accent-2-800:#42141c; --color-accent-2-900:#2b0d12;">
+
+      <sc-if value="{{ isLoginScreen }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 24px;overflow:auto;">
+          <div style="text-align:center;margin-bottom:28px;">
+            <img src="assets/spartans-logo.png" alt="Spartans Academy" style="width:64px;height:64px;object-fit:contain;margin:0 auto 12px;display:block;"/>
+            <h2 style="margin:0 0 4px;">Spartans Academy</h2>
+            <div class="card-meta">Sign in to Spartans. AC</div>
+          </div>
+
+          <div class="seg" style="font-size:13px;margin-bottom:18px;align-self:center;">
+            <label class="seg-opt"><input type="radio" name="loginrole" checked="{{ loginIsAthlete }}" onChange="{{ setLoginRoleAthlete }}"/><span>Athlete</span></label>
+            <label class="seg-opt"><input type="radio" name="loginrole" checked="{{ loginIsCoach }}" onChange="{{ setLoginRoleCoach }}"/><span>Coach</span></label>
+          </div>
+
+          <sc-if value="{{ loginIsAthlete }}" hint-placeholder-val="{{ true }}">
+            <div class="field"><label>I am…</label>
+              <select class="input" value="{{ loginAthleteName }}" onChange="{{ setLoginAthleteName }}">
+                <sc-for list="{{ loginAthleteOptions }}" as="opt" hint-placeholder-count="6">
+                  <option value="{{ opt.value }}">{{ opt.value }}</option>
+                </sc-for>
+              </select>
+            </div>
+          </sc-if>
+          <sc-if value="{{ loginIsCoach }}" hint-placeholder-val="{{ false }}">
+            <div class="field"><label>Coach account</label>
+              <select class="input" value="{{ loginCoachEmail }}" onChange="{{ setLoginCoachEmail }}">
+                <sc-for list="{{ loginCoachOptions }}" as="opt" hint-placeholder-count="2">
+                  <option value="{{ opt.value }}">{{ opt.label }}</option>
+                </sc-for>
+              </select>
+            </div>
+          </sc-if>
+
+          <div class="field"><label>Password</label><input class="input" type="password" value="{{ loginPassword }}" onChange="{{ setLoginPassword }}" placeholder="Any password works in this preview"/></div>
+
+          <sc-if value="{{ hasLoginError }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0 0 12px;font-size:12px;color:var(--color-accent-2-300);">{{ loginError }}</p>
+          </sc-if>
+
+          <button class="btn btn-primary btn-block" onClick="{{ submitLogin }}">Sign In</button>
+          <p style="margin:12px 0 0;font-size:11px;color:var(--color-neutral-600);text-align:center;">Prototype login — no real account or server behind this yet.</p>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isLoggedIn }}" hint-placeholder-val="{{ true }}">
+
+      <sc-if value="{{ showChrome }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:none;padding:56px 20px 10px;display:flex;justify-content:space-between;align-items:center;">
+          <div style="font-size:13px;color:var(--color-neutral-400);">{{ currentUserName }}<sc-if value="{{ isHeadCoach }}" hint-placeholder-val="{{ false }}"> · Head Coach</sc-if></div>
+          <button class="btn btn-ghost" onClick="{{ logoutHandler }}" style="font-size:12px;padding:4px 6px;">Log out</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTabToday }}" hint-placeholder-val="{{ true }}">
+        <div data-screen-label="Today" style="flex:1;overflow:auto;padding:4px 20px 20px;">
+
+          <sc-if value="{{ hasTodayBirthday }}" hint-placeholder-val="{{ false }}">
+            <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:10px;margin-bottom:12px;background:var(--color-accent-900);border-left:3px solid var(--color-accent);">
+              <div style="font-size:20px;">🎂</div>
+              <div style="font-size:14px;">Happy Birthday, {{ todayBirthday }}!</div>
+            </div>
+          </sc-if>
+
+          <div class="card elev-sm" style="margin-bottom:12px;background:var(--color-surface);border-left:3px solid var(--color-accent-2);">
+            <div class="card-kicker">Verse of the day</div>
+            <p style="margin:0 0 6px;font-size:14px;font-style:italic;line-height:1.5;color:var(--color-text);">“{{ verseText }}”</p>
+            <div class="card-meta">{{ verseRef }} <span class="tag tag-outline" style="margin-left:6px;">NIV</span></div>
+          </div>
+
+          <div class="card elev-sm" style="margin-bottom:18px;background:var(--color-accent-900);border-left:3px solid var(--color-accent);">
+            <div class="card-kicker">Quote of the week</div>
+            <p style="margin:0 0 6px;font-size:14px;font-style:italic;line-height:1.5;color:var(--color-text);">“{{ quoteText }}”</p>
+            <div class="card-meta">— {{ quoteAuthor }}</div>
+          </div>
+
+          <sc-if value="{{ isCoachRole }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-bottom:18px;">
+              <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-500);margin-bottom:8px;">This week's difficulty</div>
+              <div style="display:flex;gap:8px;">
+                <button onClick="{{ setWeekEasy }}" style="flex:1;padding:8px 0;border-radius:var(--radius-md);border:1.5px solid;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;{{ easyBtnStyle }}">Easy</button>
+                <button onClick="{{ setWeekMedium }}" style="flex:1;padding:8px 0;border-radius:var(--radius-md);border:1.5px solid;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;{{ mediumBtnStyle }}">Medium</button>
+                <button onClick="{{ setWeekHard }}" style="flex:1;padding:8px 0;border-radius:var(--radius-md);border:1.5px solid;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;{{ hardBtnStyle }}">Hard</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isAthleteRole }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--color-accent);flex:none;"></div>
+              <div style="font-size:12px;color:var(--color-neutral-400);">Assigned by {{ coachName }} · {{ athleteGroup }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+              <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent);">{{ weekLabel }}</div>
+              <span class="tag" style="background:{{ diffColor }};color:#fff;">{{ diffLabel }}</span>
+            </div>
+            <h2 style="margin:0 0 18px;">{{ dayTitle }}</h2>
+
+            <sc-if value="{{ todayCompleted }}" hint-placeholder-val="{{ false }}">
+              <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:10px;background:var(--color-accent-800);color:var(--color-accent-100);margin-bottom:20px;">
+                <div style="width:26px;height:26px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:flex;align-items:center;justify-content:center;font-size:14px;flex:none;">✓</div>
+                <div style="font-size:14px;">Workout complete — nice work.</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ notTodayCompleted }}" hint-placeholder-val="{{ true }}">
+              <button class="btn btn-primary btn-block" onClick="{{ startWorkoutHandler }}" style="margin-bottom:22px;">Start Workout</button>
+            </sc-if>
+
+            <div class="hr"></div>
+            <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin:14px 0 10px;">{{ exerciseCount }} exercises</div>
+
+            <sc-for list="{{ todayExercises }}" as="ex" hint-placeholder-count="4">
+              <div onClick="{{ ex.onClick }}" class="card elev-sm" style="flex-direction:row;align-items:center;gap:12px;margin-bottom:10px;cursor:pointer;">
+                <div style="flex:1;min-width:0;">
+                  <span class="tag tag-neutral" style="margin-bottom:8px;">{{ ex.tag }}</span>
+                  <div class="card-title" style="margin-top:8px;">{{ ex.name }}</div>
+                  <div class="card-meta">{{ ex.metaLabel }}</div>
+                </div>
+                <sc-if value="{{ ex.done }}" hint-placeholder-val="{{ false }}">
+                  <div style="width:26px;height:26px;border-radius:50%;background:var(--color-accent-800);color:var(--color-accent-100);display:flex;align-items:center;justify-content:center;font-size:13px;flex:none;">✓</div>
+                </sc-if>
+                <sc-if value="{{ ex.notDone }}" hint-placeholder-val="{{ true }}">
+                  <svg width="8" height="14" viewBox="0 0 8 14" style="flex:none;"><path d="M1 1l6 6-6 6" stroke="var(--color-neutral-600)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </sc-if>
+              </div>
+            </sc-for>
+
+            <div class="hr"></div>
+            <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin:14px 0 10px;">This week</div>
+            <div style="display:flex;gap:12px;margin-bottom:14px;">
+              <div class="card elev-sm" style="flex:1;">
+                <div class="card-meta">Streak</div>
+                <div class="card-title">{{ streakLabel }}</div>
+              </div>
+              <div class="card elev-sm" style="flex:1;">
+                <div class="card-meta">Adherence</div>
+                <div class="card-title">{{ adherenceLabel }}</div>
+              </div>
+            </div>
+            <div class="card elev-sm" style="flex-direction:row;align-items:flex-end;gap:10px;height:88px;">
+              <sc-for list="{{ weeklyBars }}" as="bar" hint-placeholder-count="7">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end;height:100%;">
+                  <div style="width:100%;border-radius:3px;height:{{ bar.heightPx }}px;background:{{ bar.color }};"></div>
+                  <div style="font-size:10px;color:var(--color-neutral-600);">{{ bar.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ isCoachRole }}" hint-placeholder-val="{{ false }}">
+            <h2 style="margin:0 0 4px;">Team — Today</h2>
+            <div class="card-meta" style="margin-bottom:4px;">{{ dayTitle }} · {{ weekLabel }}</div>
+            <div style="font-size:13px;color:var(--color-accent-300);margin-bottom:16px;">{{ attendanceSummary }}</div>
+
+            <div class="card elev-sm" style="margin-bottom:18px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;">
+                <div class="card-kicker" style="margin-bottom:0;">Live Activity</div>
+                <span style="font-size:12px;color:#3f9142;">{{ onlineSummary }}</span>
+              </div>
+              <sc-for list="{{ activityList }}" as="act" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--color-divider);">
+                  <div style="width:8px;height:8px;border-radius:50%;background:{{ act.dotColor }};flex:none;"></div>
+                  <div style="flex:1;font-size:14px;">{{ act.name }}</div>
+                  <div style="font-size:12px;color:var(--color-neutral-400);">{{ act.statusText }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <sc-for list="{{ rosterGroups }}" as="grp" hint-placeholder-count="3">
+              <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-300);margin:14px 0 8px;">{{ grp.name }}</div>
+              <sc-for list="{{ grp.athletes }}" as="ath" hint-placeholder-count="2">
+                <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:10px;margin-bottom:10px;">
+                  <div style="flex:1;">
+                    <div class="card-title" style="margin-bottom:6px;">{{ ath.name }}</div>
+                    <span class="tag {{ ath.tagClass }}">{{ ath.statusLabel }}</span>
+                  </div>
+                  <button class="btn {{ ath.attendanceCls }}" onClick="{{ ath.onToggleAttendance }}" style="font-size:12px;padding:8px 12px;">{{ ath.attendanceLabel }}</button>
+                </div>
+              </sc-for>
+            </sc-for>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTabCalendar }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Calendar" style="flex:1;overflow:auto;padding:4px 20px 20px;">
+          <h2 style="margin:0 0 16px;">Calendar</h2>
+
+          <div style="display:flex;gap:6px;margin-bottom:18px;">
+            <sc-for list="{{ weekDays }}" as="d" hint-placeholder-count="7">
+              <div onClick="{{ d.onClick }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 2px;border-radius:8px;cursor:pointer;background:{{ d.bg }};box-shadow:{{ d.shadow }};">
+                <div style="font-size:10px;color:var(--color-neutral-500);">{{ d.label }}</div>
+                <div style="font-size:14px;font-weight:500;">{{ d.date }}</div>
+                <div style="width:5px;height:5px;border-radius:50%;background:{{ d.dotColor }};"></div>
+              </div>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ selDay.birthdayName }}" hint-placeholder-val="{{ false }}">
+            <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:10px;margin-bottom:12px;background:var(--color-accent-900);">
+              <div style="font-size:18px;">🎂</div>
+              <div style="font-size:13px;">{{ selDay.birthdayName }}'s birthday</div>
+            </div>
+          </sc-if>
+
+          <div class="card elev-sm" style="margin-bottom:18px;">
+            <span class="tag {{ selDay.tagClass }}" style="align-self:flex-start;">{{ selDay.typeLabel }}</span>
+            <sc-if value="{{ isCoachRole }}" hint-placeholder-val="{{ false }}">
+              <div class="seg" style="margin:10px 0;font-size:12px;">
+                <label class="seg-opt"><input type="radio" name="daytype" checked="{{ selDay.isTraining }}" onChange="{{ setDayTraining }}"/><span>Training</span></label>
+                <label class="seg-opt"><input type="radio" name="daytype" checked="{{ selDay.isRest }}" onChange="{{ setDayRest }}"/><span>Rest</span></label>
+                <label class="seg-opt"><input type="radio" name="daytype" checked="{{ selDay.isMeet }}" onChange="{{ setDayMeet }}"/><span>Meet</span></label>
+                <label class="seg-opt"><input type="radio" name="daytype" checked="{{ selDay.isOther }}" onChange="{{ setDayOther }}"/><span>Other</span></label>
+              </div>
+
+              <sc-if value="{{ selDay.isTraining }}" hint-placeholder-val="{{ true }}">
+                <div class="seg" style="margin-bottom:12px;font-size:12px;">
+                  <label class="seg-opt"><input type="radio" name="subtype" checked="{{ selDay.isWeightroom }}" onChange="{{ setSubtypeWeightroom }}"/><span>Weight Room</span></label>
+                  <label class="seg-opt"><input type="radio" name="subtype" checked="{{ selDay.isTrack }}" onChange="{{ setSubtypeTrack }}"/><span>Track</span></label>
+                </div>
+                <div class="field"><label>Location</label><input class="input" value="{{ selDay.location }}" onChange="{{ updateLocation }}"/></div>
+                <div class="field"><label>Warm-up</label><textarea class="input" rows="2" value="{{ selDay.warmup }}" onChange="{{ updateWarmup }}"></textarea></div>
+                <div class="field"><label>Drills</label><textarea class="input" rows="2" value="{{ selDay.drills }}" onChange="{{ updateDrills }}"></textarea></div>
+                <div class="field"><label>Workout</label><textarea class="input" rows="3" value="{{ selDay.workout }}" onChange="{{ updateWorkout }}"></textarea></div>
+                <div class="field"><label>Post / Cooldown</label><textarea class="input" rows="2" value="{{ selDay.post }}" onChange="{{ updatePost }}"></textarea></div>
+                <div class="field"><label>Coach notes</label><textarea class="input" rows="2" value="{{ selDay.notes }}" onChange="{{ updateNotes }}"></textarea></div>
+              </sc-if>
+              <sc-if value="{{ selDay.isRest }}" hint-placeholder-val="{{ false }}">
+                <div class="field"><label>Rest day instructions</label><textarea class="input" rows="4" value="{{ selDay.restNote }}" onChange="{{ updateRestNote }}"></textarea></div>
+              </sc-if>
+              <sc-if value="{{ selDay.isMeet }}" hint-placeholder-val="{{ false }}">
+                <div class="field"><label>Meet details</label><input class="input" value="{{ selDay.summary }}" onChange="{{ updateSummary }}"/></div>
+              </sc-if>
+              <sc-if value="{{ selDay.isOther }}" hint-placeholder-val="{{ false }}">
+                <div class="field"><label>Activity details</label><input class="input" value="{{ selDay.summary }}" onChange="{{ updateSummary }}" placeholder="e.g. Team fundraiser, banquet, travel"/></div>
+              </sc-if>
+            </sc-if>
+
+            <sc-if value="{{ isAthleteRole }}" hint-placeholder-val="{{ true }}">
+              <sc-if value="{{ selDay.isTraining }}" hint-placeholder-val="{{ true }}">
+                <div style="display:grid;gap:10px;margin-top:10px;">
+                  <div><div class="card-kicker">Location</div><p style="margin:2px 0 0;font-size:14px;">{{ selDay.location }}</p></div>
+                  <div><div class="card-kicker">Warm-up</div><p style="margin:2px 0 0;font-size:14px;">{{ selDay.warmup }}</p></div>
+                  <div><div class="card-kicker">Drills</div><p style="margin:2px 0 0;font-size:14px;">{{ selDay.drills }}</p></div>
+                  <div><div class="card-kicker">Workout</div><p style="margin:2px 0 0;font-size:14px;">{{ selDay.workout }}</p></div>
+                  <div><div class="card-kicker">Post / Cooldown</div><p style="margin:2px 0 0;font-size:14px;">{{ selDay.post }}</p></div>
+                  <div><div class="card-kicker">Notes</div><p style="margin:2px 0 0;font-size:14px;">{{ selDay.notes }}</p></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ selDay.isRest }}" hint-placeholder-val="{{ false }}">
+                <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:var(--color-neutral-300);">{{ selDay.restNote }}</p>
+              </sc-if>
+              <sc-if value="{{ selDay.isMeet }}" hint-placeholder-val="{{ false }}">
+                <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:var(--color-neutral-300);">{{ selDay.summary }}</p>
+              </sc-if>
+              <sc-if value="{{ selDay.isOther }}" hint-placeholder-val="{{ false }}">
+                <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:var(--color-neutral-300);">{{ selDay.summary }}</p>
+              </sc-if>
+            </sc-if>
+          </div>
+
+          <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:8px;">Sync to your calendar</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn btn-block {{ syncTargets.apple.cls }}" onClick="{{ syncTargets.apple.onClick }}">{{ syncTargets.apple.label }}</button>
+            <button class="btn btn-block {{ syncTargets.google.cls }}" onClick="{{ syncTargets.google.onClick }}">{{ syncTargets.google.label }}</button>
+            <button class="btn btn-block {{ syncTargets.android.cls }}" onClick="{{ syncTargets.android.onClick }}">{{ syncTargets.android.label }}</button>
+          </div>
+          <p style="margin:8px 0 0;font-size:11px;color:var(--color-neutral-600);">Adds training sessions, meets and other activities to the calendars you connect.</p>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTabJournal }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Journal" style="flex:1;overflow:auto;padding:4px 20px 20px;">
+          <h2 style="margin:0 0 4px;">Journal</h2>
+
+          <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-2-300);margin:16px 0 10px;">Season Goals</div>
+          <sc-for list="{{ goalsView }}" as="g" hint-placeholder-count="2">
+            <div onClick="{{ g.onClick }}" class="card elev-sm" style="flex-direction:row;align-items:center;gap:10px;margin-bottom:8px;cursor:pointer;">
+              <div style="width:20px;height:20px;border-radius:5px;border:1.5px solid var(--color-accent-2);display:flex;align-items:center;justify-content:center;font-size:12px;flex:none;background:{{ g.checkBg }};color:var(--color-bg);">{{ g.checkMark }}</div>
+              <p style="margin:0;font-size:14px;{{ g.textStyle }}">{{ g.text }}</p>
+            </div>
+          </sc-for>
+          <div style="display:flex;gap:8px;margin-bottom:20px;">
+            <input class="input" placeholder="Add a goal for the season…" value="{{ goalDraft }}" onChange="{{ setGoalDraft }}"/>
+            <button class="btn btn-primary" onClick="{{ addGoal }}">Add</button>
+          </div>
+          <div class="hr"></div>
+
+          <sc-if value="{{ isAthleteRole }}" hint-placeholder-val="{{ true }}">
+            <p style="margin:14px 0 14px;font-size:12px;color:var(--color-neutral-500);">Private — only visible to {{ coachName }}.</p>
+            <div class="field"><label>How are you feeling today?</label><textarea class="input" rows="3" value="{{ journalDraft }}" onChange="{{ setJournalDraft }}" placeholder="Sleep, soreness, mood, anything on your mind…"></textarea></div>
+            <button class="btn btn-primary btn-block" onClick="{{ saveJournalEntry }}" style="margin-bottom:20px;">Save Entry</button>
+            <div class="hr"></div>
+            <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin:14px 0 10px;">Your entries</div>
+            <sc-for list="{{ myEntries }}" as="en" hint-placeholder-count="2">
+              <div class="card elev-sm" style="margin-bottom:10px;">
+                <div class="card-meta">{{ en.date }}</div>
+                <p style="margin:0;font-size:14px;">{{ en.text }}</p>
+              </div>
+            </sc-for>
+          </sc-if>
+
+          <sc-if value="{{ isCoachRole }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0 0 16px;font-size:12px;color:var(--color-neutral-500);">Private entries from your athletes.</p>
+            <sc-for list="{{ allEntries }}" as="en" hint-placeholder-count="3">
+              <div class="card elev-sm" style="margin-bottom:10px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                  <span class="tag tag-accent-2">{{ en.athlete }}</span>
+                  <span class="card-meta">{{ en.date }}</span>
+                </div>
+                <p style="margin:0;font-size:14px;">{{ en.text }}</p>
+              </div>
+            </sc-for>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTabFilm }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Film" style="flex:1;overflow:auto;padding:4px 20px 20px;">
+
+          <sc-if value="{{ filmListView }}" hint-placeholder-val="{{ true }}">
+            <h2 style="margin:0 0 16px;">Film Review</h2>
+            <sc-for list="{{ filmList }}" as="fm" hint-placeholder-count="3">
+              <div onClick="{{ fm.onClick }}" class="card elev-sm" style="margin-bottom:12px;cursor:pointer;">
+                <div style="width:100%;aspect-ratio:16/9;border-radius:6px;background:repeating-linear-gradient(45deg, var(--color-neutral-800), var(--color-neutral-800) 8px, var(--color-neutral-900) 8px, var(--color-neutral-900) 16px);display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+                  <span style="font-family:ui-monospace,monospace;font-size:11px;color:var(--color-neutral-400);">video: {{ fm.title }}</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div>
+                    <div class="card-title">{{ fm.title }}</div>
+                    <div class="card-meta">{{ fm.athlete }} · {{ fm.date }}</div>
+                  </div>
+                  <span class="tag tag-outline">{{ fm.commentCountLabel }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </sc-if>
+
+          <sc-if value="{{ filmDetailView }}" hint-placeholder-val="{{ false }}">
+            <button class="btn btn-ghost" onClick="{{ closeFilm }}" style="margin-bottom:12px;padding-left:0;">‹ All film</button>
+            <div style="width:100%;aspect-ratio:16/9;border-radius:8px;background:repeating-linear-gradient(45deg, var(--color-neutral-800), var(--color-neutral-800) 8px, var(--color-neutral-900) 8px, var(--color-neutral-900) 16px);display:flex;align-items:center;justify-content:center;margin-bottom:10px;">
+              <span style="font-family:ui-monospace,monospace;font-size:11px;color:var(--color-neutral-400);">video: {{ selectedFilm.title }}</span>
+            </div>
+            <div style="height:4px;border-radius:2px;background:var(--color-neutral-800);margin-bottom:4px;position:relative;">
+              <div style="position:absolute;left:0;top:0;bottom:0;width:38%;background:var(--color-accent);border-radius:2px;"></div>
+            </div>
+            <div class="card-title" style="margin-bottom:2px;">{{ selectedFilm.title }}</div>
+            <div class="card-meta" style="margin-bottom:16px;">{{ selectedFilm.athlete }} · {{ selectedFilm.date }}</div>
+
+            <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:10px;">Coach notes</div>
+            <sc-for list="{{ selectedFilm.comments }}" as="c" hint-placeholder-count="1">
+              <div class="card elev-sm" style="margin-bottom:8px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                  <span class="tag tag-accent-2">{{ c.time }}</span>
+                  <span class="card-meta">{{ c.author }}</span>
+                </div>
+                <p style="margin:0;font-size:14px;">{{ c.text }}</p>
+              </div>
+            </sc-for>
+            <sc-if value="{{ selectedFilm.hasNoComments }}" hint-placeholder-val="{{ false }}">
+              <p style="font-size:13px;color:var(--color-neutral-600);">No notes yet.</p>
+            </sc-if>
+
+            <sc-if value="{{ isCoachRole }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:8px;margin-top:12px;margin-bottom:20px;">
+                <input class="input" placeholder="Add a note at current time…" value="{{ commentDraft }}" onChange="{{ setCommentDraft }}"/>
+                <button class="btn btn-primary" onClick="{{ addComment }}">Add</button>
+              </div>
+            </sc-if>
+
+            <div class="hr"></div>
+            <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin:14px 0 10px;">Your self-review</div>
+
+            <sc-if value="{{ isAthleteRole }}" hint-placeholder-val="{{ true }}">
+              <div class="field"><label>3 things that worked</label>
+                <sc-for list="{{ selectedFilm.workedRows }}" as="row" hint-placeholder-count="3">
+                  <input class="input" style="margin-bottom:6px;" value="{{ row.value }}" onChange="{{ row.onChange }}" placeholder="What went well?"/>
+                </sc-for>
+              </div>
+              <div class="field"><label>3 things that need improvement</label>
+                <sc-for list="{{ selectedFilm.improveRows }}" as="row" hint-placeholder-count="3">
+                  <input class="input" style="margin-bottom:6px;" value="{{ row.value }}" onChange="{{ row.onChange }}" placeholder="What needs work?"/>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ isCoachRole }}" hint-placeholder-val="{{ false }}">
+              <div class="card elev-sm" style="margin-bottom:10px;">
+                <div class="card-kicker">Worked</div>
+                <sc-for list="{{ selectedFilm.workedFilled }}" as="row" hint-placeholder-count="1">
+                  <p style="margin:0 0 4px;font-size:14px;">• {{ row.value }}</p>
+                </sc-for>
+              </div>
+              <div class="card elev-sm">
+                <div class="card-kicker">Needs improvement</div>
+                <sc-for list="{{ selectedFilm.improveFilled }}" as="row" hint-placeholder-count="1">
+                  <p style="margin:0 0 4px;font-size:14px;">• {{ row.value }}</p>
+                </sc-for>
+              </div>
+            </sc-if>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTabTeam }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Team" style="flex:1;overflow:auto;padding:4px 20px 20px;">
+          <h2 style="margin:0 0 16px;">Team</h2>
+
+          <sc-for list="{{ teamGroups }}" as="grp" hint-placeholder-count="3">
+            <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-300);margin:14px 0 8px;">{{ grp.name }}</div>
+            <sc-for list="{{ grp.athletes }}" as="ath" hint-placeholder-count="2">
+              <div class="card elev-sm" style="margin-bottom:12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                  <div class="card-title">{{ ath.name }}</div>
+                  <span class="tag tag-outline">🎂 {{ ath.birthdayLabel }}</span>
+                </div>
+                <sc-if value="{{ ath.canEdit }}" hint-placeholder-val="{{ false }}">
+                  <textarea class="input" rows="2" value="{{ ath.bio }}" onChange="{{ ath.onBioChange }}" style="margin-bottom:8px;"></textarea>
+                </sc-if>
+                <sc-if value="{{ ath.notEditable }}" hint-placeholder-val="{{ true }}">
+                  <p style="margin:0 0 8px;font-size:13px;color:var(--color-neutral-300);">{{ ath.bio }}</p>
+                </sc-if>
+                <div class="card-kicker">Personal Bests</div>
+                <sc-for list="{{ ath.prs }}" as="pr" hint-placeholder-count="2">
+                  <sc-if value="{{ ath.canEdit }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;gap:8px;margin:4px 0;">
+                      <input class="input" value="{{ pr.event }}" onChange="{{ pr.onEventChange }}" placeholder="Event" style="flex:1;"/>
+                      <input class="input" value="{{ pr.mark }}" onChange="{{ pr.onMarkChange }}" placeholder="Mark" style="width:90px;"/>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ ath.notEditable }}" hint-placeholder-val="{{ false }}">
+                    <p style="margin:2px 0;font-size:13px;">{{ pr.event }}: <strong>{{ pr.mark }}</strong></p>
+                  </sc-if>
+                </sc-for>
+                <sc-if value="{{ ath.canEdit }}" hint-placeholder-val="{{ false }}">
+                  <button class="btn btn-ghost" onClick="{{ ath.onAddPR }}" style="padding:4px 0;font-size:12px;">+ Add PR</button>
+                </sc-if>
+              </div>
+            </sc-for>
+          </sc-for>
+
+          <sc-if value="{{ isHeadCoach }}" hint-placeholder-val="{{ false }}">
+            <div class="hr"></div>
+            <div style="font-family:var(--font-heading);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-500);margin:14px 0 10px;">Manage Coaches</div>
+            <sc-for list="{{ coachesView }}" as="c" hint-placeholder-count="2">
+              <div class="card elev-sm" style="flex-direction:row;align-items:center;gap:10px;margin-bottom:8px;">
+                <div style="flex:1;">
+                  <div class="card-title" style="margin-bottom:2px;">{{ c.name }}</div>
+                  <div class="card-meta">{{ c.email }}</div>
+                </div>
+                <span class="tag {{ c.badgeCls }}">{{ c.badge }}</span>
+                <sc-if value="{{ c.canRemove }}" hint-placeholder-val="{{ true }}">
+                  <button class="btn btn-ghost" onClick="{{ c.onRemove }}" style="padding:4px 6px;font-size:12px;">Remove</button>
+                </sc-if>
+              </div>
+            </sc-for>
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              <input class="input" placeholder="Coach name" value="{{ newCoachName }}" onChange="{{ setNewCoachName }}"/>
+              <input class="input" placeholder="Email" value="{{ newCoachEmail }}" onChange="{{ setNewCoachEmail }}"/>
+              <button class="btn btn-primary" onClick="{{ addCoachHandler }}">Add</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isWorkout }}" hint-placeholder-val="{{ false }}">
+        <div data-screen-label="Active Workout" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+
+          <sc-if value="{{ workoutFinished }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 28px;text-align:center;">
+              <div style="width:56px;height:56px;border-radius:50%;background:var(--color-accent-800);color:var(--color-accent-100);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;">✓</div>
+              <h2 style="margin:0 0 8px;">Workout Complete</h2>
+              <p style="margin:0 0 28px;font-size:14px;color:var(--color-neutral-500);">{{ summaryText }}</p>
+              <button class="btn btn-primary btn-block" onClick="{{ finishHandler }}">Back to Today</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ workoutActive }}" hint-placeholder-val="{{ true }}">
+            <div style="flex:none;padding:56px 20px 14px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                <button class="btn btn-ghost" onClick="{{ exitHandler }}" style="padding-left:0;">✕ Exit</button>
+                <div class="card-meta">Exercise {{ exPosLabel }}</div>
+              </div>
+              <span class="tag tag-neutral" style="margin-bottom:8px;">{{ currentTag }}</span>
+              <h3 style="margin:8px 0 0;">{{ currentExerciseName }}</h3>
+            </div>
+
+            <sc-if value="{{ restActive }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:none;margin:0 20px 12px;display:flex;align-items:center;justify-content:space-between;background:var(--color-accent-900);border-radius:8px;padding:10px 14px;">
+                <div style="font-size:13px;color:var(--color-accent-300);">Resting · {{ restLabel }}</div>
+                <button class="btn btn-ghost" onClick="{{ skipRestHandler }}" style="padding:2px 4px;">Skip</button>
+              </div>
+            </sc-if>
+
+            <div style="flex:1;overflow:auto;padding:0 20px;">
+              <sc-for list="{{ setsView }}" as="st" hint-placeholder-count="5">
+                <div class="elev-sm" style="display:flex;align-items:center;gap:12px;border-radius:8px;padding:12px 14px;margin-bottom:8px;background:{{ st.bg }};opacity:{{ st.opacity }};">
+                  <div style="width:22px;font-size:13px;color:var(--color-neutral-500);flex:none;">{{ st.n }}</div>
+                  <div style="flex:1;font-size:14px;color:{{ st.textColor }};">{{ st.valueLabel }}</div>
+                  <sc-if value="{{ st.isDone }}" hint-placeholder-val="{{ false }}">
+                    <div style="font-size:13px;color:var(--color-accent-300);">✓</div>
+                  </sc-if>
+                  <sc-if value="{{ st.isCurrent }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <button class="btn-icon btn btn-secondary" onClick="{{ decHandler }}">–</button>
+                      <button class="btn-icon btn btn-secondary" onClick="{{ incHandler }}">+</button>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="flex:none;padding:12px 20px 28px;">
+              <sc-if value="{{ hasNextLabel }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:12px;color:var(--color-neutral-600);margin-bottom:10px;">Up next · {{ nextExerciseLabel }}</div>
+              </sc-if>
+              <button class="btn btn-primary btn-block" onClick="{{ logSetHandler }}">Log Set</button>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showChrome }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:none;display:flex;border-top:1px solid var(--color-divider);padding:10px 8px 26px;background:var(--color-bg);">
+          <button onClick="{{ goToday }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;color:{{ tabColorToday }};">
+            <div style="width:16px;height:16px;border:1.5px solid currentColor;border-radius:4px;"></div>
+            <div style="font-size:10px;">Today</div>
+          </button>
+          <button onClick="{{ goCalendar }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;color:{{ tabColorCalendar }};">
+            <div style="width:16px;height:16px;border:1.5px solid currentColor;border-radius:3px;position:relative;"><div style="position:absolute;top:3px;left:0;right:0;height:1.5px;background:currentColor;"></div></div>
+            <div style="font-size:10px;">Calendar</div>
+          </button>
+          <button onClick="{{ goJournal }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;color:{{ tabColorJournal }};">
+            <div style="width:16px;height:16px;border:1.5px solid currentColor;border-radius:2px;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 3px;"><div style="height:1.2px;background:currentColor;"></div><div style="height:1.2px;background:currentColor;"></div></div>
+            <div style="font-size:10px;">Journal</div>
+          </button>
+          <button onClick="{{ goFilm }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;color:{{ tabColorFilm }};">
+            <div style="width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:9px solid currentColor;"></div>
+            <div style="font-size:10px;">Film</div>
+          </button>
+          <button onClick="{{ goTeam }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;color:{{ tabColorTeam }};">
+            <div style="width:14px;height:14px;border-radius:50%;border:1.5px solid currentColor;"></div>
+            <div style="font-size:10px;">Team</div>
+          </button>
+        </div>
+      </sc-if>
+
+      </sc-if>
+    </div>
+  </x-import>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:980},&quot;coachName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Coach Mia&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;restSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:90,&quot;min&quot;:30,&quot;max&quot;:180,&quot;step&quot;:15,&quot;tsType&quot;:&quot;number&quot;,&quot;unit&quot;:&quot;s&quot;},&quot;athleteGroup&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Short Sprinters&quot;,&quot;options&quot;:[&quot;Short Sprinters&quot;,&quot;Long Sprinters&quot;,&quot;Jumpers&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;todaySessionType&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;weightroom&quot;,&quot;options&quot;:[&quot;weightroom&quot;,&quot;track&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Today's session (preview)&quot;}}">
+const EXERCISES = [
+  { name: 'Back Squat', sets: 5, reps: 5, weight: 225, unitType: 'weight', tag: 'Main Lift' },
+  { name: 'Romanian Deadlift', sets: 3, reps: 8, weight: 185, unitType: 'weight', tag: 'Superset A' },
+  { name: 'Walking Lunge', sets: 3, reps: 12, weight: 40, unitType: 'weight', tag: 'Superset A · per leg' },
+  { name: 'Plank', sets: 3, reps: 45, weight: null, unitType: 'time', tag: 'Finisher' },
+];
+
+const VERSES_BY_DIFFICULTY = {
+  easy: [
+    { text: 'She is clothed with strength and dignity; she can laugh at the days to come.', ref: 'Proverbs 31:25' },
+    { text: 'The LORD is my strength and my shield; my heart trusts in him, and he helps me.', ref: 'Psalm 28:7' },
+    { text: 'Come to me, all you who are weary and burdened, and I will give you rest.', ref: 'Matthew 11:28' },
+  ],
+  medium: [
+    { text: 'but those who hope in the LORD will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.', ref: 'Isaiah 40:31' },
+    { text: 'I can do all this through him who gives me strength.', ref: 'Philippians 4:13' },
+    { text: 'Do you not know that in a race all the runners run, but only one gets the prize? Run in such a way as to get the prize.', ref: '1 Corinthians 9:24' },
+    { text: 'let us run with perseverance the race marked out for us.', ref: 'Hebrews 12:1' },
+  ],
+  hard: [
+    { text: 'Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the LORD your God will be with you wherever you go.', ref: 'Joshua 1:9' },
+    { text: 'Let us not become weary in doing good, for at the proper time we will reap a harvest if we do not give up.', ref: 'Galatians 6:9' },
+    { text: 'When you pass through the waters, I will be with you; and when you pass through the rivers, they will not sweep over you.', ref: 'Isaiah 43:2' },
+    { text: 'No, in all these things we are more than conquerors through him who loved us.', ref: 'Romans 8:37' },
+  ],
+};
+
+const WEEK_SEED = [
+  { label: 'Mon', date: 12, type: 'training', subtype: 'weightroom', location: 'Main Weight Room', warmup: '10 min bike + dynamic stretch', drills: 'Band walks, hip openers', workout: 'Back Squat 5x5, RDL 3x8, Walking Lunge 3x12', post: 'Foam roll + static stretch, 10 min', notes: 'Focus on bar speed out of the hole.' },
+  { label: 'Tue', date: 13, type: 'training', subtype: 'track', location: 'Outdoor Track', warmup: '800m jog + strides', drills: 'A-skips, B-skips, high knees', workout: '6 x 150m @ 90%, full recovery', post: 'Cooldown jog, 800m', notes: 'Watch for early upper-body extension.' },
+  { label: 'Wed', date: 14, type: 'training', subtype: 'weightroom', location: 'Main Weight Room', warmup: '10 min bike + dynamic stretch', drills: 'Band walks, hip openers', workout: 'Back Squat 5x5, RDL 3x8, Walking Lunge 3x12, Plank 3x45s', post: 'Foam roll + static stretch, 10 min', notes: 'Squat focus day — video block 3.', isToday: true },
+  { label: 'Thu', date: 15, type: 'rest', restNote: 'Active recovery: 20 min easy bike, full-body mobility flow, foam roll quads + calves. Hydrate — aim for 3L water. Log sleep + soreness in your journal tonight.' },
+  { label: 'Fri', date: 16, type: 'training', subtype: 'track', location: 'Outdoor Track', warmup: '10 min jog + dynamic drills', drills: 'Wall drills, wicket runs', workout: 'Sprint mechanics circuit, 4 rounds', post: 'Light jog + stretch', notes: 'Bring spikes.' },
+  { label: 'Sat', date: 17, type: 'meet', summary: 'Regional Qualifier — Memorial Stadium, 9:00 AM' },
+  { label: 'Sun', date: 18, type: 'rest', restNote: 'Full rest. Light stretching only, no training. Prioritize sleep and nutrition ahead of next week.' },
+];
+
+const GROUPS = ['Short Sprinters', 'Long Sprinters', 'Jumpers'];
+
+const ROSTER_SEED = [
+  { name: 'Jordan K.', status: 'done', group: 'Short Sprinters', online: true, sessionMin: 14, lastActive: 'now',
+    bio: 'Junior. Started sprinting freshman year, chasing a sub-11 100m.', birthMonth: 'Aug', birthDay: 16,
+    prs: [{ event: '100m', mark: '11.42' }, { event: '200m', mark: '23.10' }] },
+  { name: 'Deshawn R.', status: 'todo', group: 'Short Sprinters', online: false, sessionMin: 0, lastActive: '2h ago',
+    bio: 'Sophomore. Transferred in this year, still building base strength.', birthMonth: 'Sep', birthDay: 3,
+    prs: [{ event: '100m', mark: '11.88' }] },
+  { name: 'Priya N.', status: 'done', group: 'Long Sprinters', online: false, sessionMin: 0, lastActive: '38m ago',
+    bio: 'Senior team captain. Team record holder in the 400m.', birthMonth: 'Aug', birthDay: 14,
+    prs: [{ event: '400m', mark: '54.60' }, { event: '200m', mark: '24.30' }] },
+  { name: 'Malik O.', status: 'progress', group: 'Long Sprinters', online: true, sessionMin: 6, lastActive: 'now',
+    bio: 'Junior. Moved up from the 200m to the 400m this season.', birthMonth: 'Jan', birthDay: 22,
+    prs: [{ event: '400m', mark: '49.80' }] },
+  { name: 'Amara T.', status: 'progress', group: 'Jumpers', online: false, sessionMin: 0, lastActive: 'Yesterday, 6:40 PM',
+    bio: 'Senior. Long jump and triple jump, aiming for the state meet.', birthMonth: 'Nov', birthDay: 5,
+    prs: [{ event: 'Long Jump', mark: '18\'2"' }, { event: 'Triple Jump', mark: '37\'6"' }] },
+  { name: 'Sofia G.', status: 'todo', group: 'Jumpers', online: false, sessionMin: 0, lastActive: '3 days ago',
+    bio: 'Freshman. New to jumps, focused on technique this year.', birthMonth: 'Jul', birthDay: 30,
+    prs: [{ event: 'Long Jump', mark: '15\'9"' }] },
+];
+
+const COACHES_SEED = [
+  { name: 'Coach Bolade', email: 'bolade@spartansacademy.app', head: true },
+  { name: 'Coach Mia', email: 'mia@spartansacademy.app', head: false },
+];
+
+const TRACK_EXERCISES = [
+  { name: '150m Sprint', sets: 6, timeSec: 19.5, unitType: 'sprint', tag: 'Speed Work', distanceLabel: '150m' },
+  { name: '60m Fly', sets: 4, timeSec: 7.8, unitType: 'sprint', tag: 'Acceleration', distanceLabel: '60m' },
+  { name: '300m Repeat', sets: 3, timeSec: 45.2, unitType: 'sprint', tag: 'Speed Endurance', distanceLabel: '300m' },
+];
+
+const QUOTES_BY_DIFFICULTY = {
+  easy: [
+    { text: 'The last three or four reps is what makes the muscle grow. This is what you need to do to develop.', author: 'Arnold Schwarzenegger' },
+    { text: 'It always seems impossible until it is done.', author: 'Nelson Mandela' },
+    { text: 'Take care of your body. It\u2019s the only place you have to live.', author: 'Jim Rohn' },
+  ],
+  medium: [
+    { text: 'You have to expect things of yourself before you can do them.', author: 'Michael Jordan' },
+    { text: 'Discipline is choosing between what you want now and what you want most.', author: 'Abraham Lincoln' },
+    { text: 'The pain of discipline is far less than the pain of regret.', author: 'Kobe Bryant' },
+  ],
+  hard: [
+    { text: 'It\u2019s not whether you get knocked down, it\u2019s whether you get up.', author: 'Vince Lombardi' },
+    { text: 'Suffering is temporary. Quitting lasts forever.', author: 'Lasse Vir\u00e9n' },
+    { text: 'The successful warrior is the average man with laser-like focus.', author: 'Bruce Lee' },
+  ],
+};
+
+const GOALS_SEED = [
+  { text: 'Break 11.20 in the 100m by regionals', done: false },
+  { text: 'Hit 225 lb back squat 5x5', done: true },
+];
+
+const JOURNAL_SEED = [
+  { athlete: 'You', date: 'Aug 17', text: 'Legs felt heavy today, slept only 5 hrs.' },
+  { athlete: 'Amara T.', date: 'Aug 17', text: 'Feeling strong, ready for the meet.' },
+  { athlete: 'Jordan K.', date: 'Aug 16', text: 'Tight hamstring after sprints, iced after.' },
+];
+
+const FILMS_SEED = [
+  { id: 1, title: '100m Block Start', athlete: 'Jordan K.', date: 'Aug 15', comments: [{ author: 'Coach Bolade', time: '0:04', text: 'Drive angle looks great — stay lower 2 more steps.' }], worked: ['Fast reaction off the gun', '', ''], improve: ['Hips too high at drive', '', ''] },
+  { id: 2, title: 'Long Jump Approach', athlete: 'Amara T.', date: 'Aug 12', comments: [{ author: 'Coach Bolade', time: '0:11', text: 'Check your penultimate step — it is collapsing.' }], worked: ['', '', ''], improve: ['', '', ''] },
+  { id: 3, title: '4x400 Handoff', athlete: 'Relay A Squad', date: 'Aug 9', comments: [], worked: ['', '', ''], improve: ['', '', ''] },
+];
+
+class Component extends DCLogic {
+  state = {
+    authScreen: 'login', loginRole: 'athlete', loginAthleteName: ROSTER_SEED[0].name, loginCoachEmail: COACHES_SEED[0].email,
+    loginPassword: '', loginError: '', currentUserName: '', isHeadCoach: false,
+    coaches: COACHES_SEED.map(c => ({ ...c })), newCoachName: '', newCoachEmail: '',
+    roster: ROSTER_SEED.map(a => ({ ...a, prs: a.prs.map(p => ({ ...p })) })),
+    screen: 'tabs', activeTab: 'today', role: 'athlete',
+    exIndex: 0, setIndex: 0,
+    curWeight: EXERCISES[0].weight, curReps: EXERCISES[0].unitType === 'sprint' ? EXERCISES[0].timeSec : EXERCISES[0].reps,
+    logs: EXERCISES.map(e => Array.from({ length: e.sets }, () => ({ weight: e.weight, reps: e.reps, timeSec: e.timeSec, done: false }))),
+    restActive: false, restRemaining: 0, workoutFinished: false, todayCompleted: false,
+    weekDays: WEEK_SEED.map(d => ({ ...d })),
+    selectedDayIndex: 2,
+    weekDifficulty: 'medium',
+    attendance: ROSTER_SEED.reduce((acc, a) => ({ ...acc, [a.name]: false }), {}),
+    syncTargets: { apple: false, google: false, android: false },
+    journalDraft: '',
+    goals: GOALS_SEED.map(g => ({ ...g })),
+    goalDraft: '',
+    journalEntries: JOURNAL_SEED.map(e => ({ ...e })),
+    films: FILMS_SEED.map(f => ({ ...f, comments: f.comments.map(c => ({ ...c })), worked: [...f.worked], improve: [...f.improve] })),
+    selectedFilmId: null,
+    commentDraft: '',
+  };
+
+  getExercises() { return this.props.todaySessionType === 'track' ? TRACK_EXERCISES : EXERCISES; }
+  displayWeight(lb) { return lb == null ? null : Math.round(lb); }
+  firstIncompleteIndex() {
+    const list = this.getExercises();
+    for (let i = 0; i < list.length; i++) if (!this.state.logs[i].every(s => s.done)) return i;
+    return 0;
+  }
+  clearRest() { if (this._restTimer) { clearInterval(this._restTimer); this._restTimer = null; } }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.todaySessionType !== this.props.todaySessionType) {
+      const list = this.getExercises();
+      this.clearRest();
+      this.setState({
+        screen: 'tabs', exIndex: 0, setIndex: 0,
+        curWeight: list[0].weight, curReps: list[0].unitType === 'sprint' ? list[0].timeSec : list[0].reps,
+        logs: list.map(e => Array.from({ length: e.sets }, () => ({ weight: e.weight, reps: e.reps, timeSec: e.timeSec, done: false }))),
+        todayCompleted: false, workoutFinished: false, restActive: false, restRemaining: 0,
+      });
+    }
+  }
+
+  startWorkout(index) {
+    const list = this.getExercises();
+    const log = this.state.logs[index];
+    let si = log.findIndex(s => !s.done);
+    if (si === -1) si = 0;
+    const ex = list[index];
+    this.clearRest();
+    const startVal = ex.unitType === 'sprint' ? (log[si] ? log[si].timeSec : ex.timeSec) : (log[si] ? log[si].reps : ex.reps);
+    this.setState({ screen: 'workout', exIndex: index, setIndex: si, curWeight: log[si] ? log[si].weight : ex.weight, curReps: startVal, restActive: false, restRemaining: 0, workoutFinished: false });
+  }
+  adjustWeight(delta) { this.setState(s => ({ curWeight: Math.max(0, s.curWeight + delta) })); }
+  adjustReps(delta) {
+    const ex = this.getExercises()[this.state.exIndex];
+    if (ex.unitType === 'sprint') { this.setState(s => ({ curReps: Math.max(0, +(s.curReps + delta).toFixed(1)) })); return; }
+    const min = ex.unitType === 'time' ? 5 : 1;
+    this.setState(s => ({ curReps: Math.max(min, s.curReps + delta) }));
+  }
+  logSet() {
+    const list = this.getExercises();
+    const { exIndex, setIndex, curWeight, curReps } = this.state;
+    const logs = this.state.logs.map(a => a.slice());
+    const ex = list[exIndex];
+    logs[exIndex][setIndex] = ex.unitType === 'sprint' ? { timeSec: curReps, done: true } : { weight: curWeight, reps: curReps, done: true };
+    let nextExIndex = exIndex, nextSetIndex = setIndex + 1, finished = false;
+    if (nextSetIndex >= ex.sets) {
+      if (exIndex + 1 < list.length) { nextExIndex = exIndex + 1; nextSetIndex = 0; } else finished = true;
+    }
+    this.clearRest();
+    if (finished) { this.setState({ logs, workoutFinished: true, restActive: false, restRemaining: 0 }); return; }
+    const nextEx = list[nextExIndex];
+    const carryWeight = nextExIndex !== exIndex ? nextEx.weight : curWeight;
+    const carryReps = nextExIndex !== exIndex ? (nextEx.unitType === 'sprint' ? nextEx.timeSec : nextEx.reps) : curReps;
+    this.setState({ logs, exIndex: nextExIndex, setIndex: nextSetIndex, curWeight: carryWeight, curReps: carryReps });
+    this.startRest();
+  }
+  startRest() {
+    const secs = this.props.restSeconds ?? 90;
+    this.clearRest();
+    this.setState({ restActive: true, restRemaining: secs });
+    this._restTimer = setInterval(() => {
+      this.setState(s => {
+        const r = s.restRemaining - 1;
+        if (r <= 0) { clearInterval(this._restTimer); this._restTimer = null; return { restActive: false, restRemaining: 0 }; }
+        return { restRemaining: r };
+      });
+    }, 1000);
+  }
+  skipRest() { this.clearRest(); this.setState({ restActive: false, restRemaining: 0 }); }
+  exitWorkout() { this.clearRest(); this.setState({ screen: 'tabs' }); }
+  finishWorkout() { this.clearRest(); this.setState({ screen: 'tabs', todayCompleted: true, workoutFinished: false }); }
+  componentWillUnmount() { this.clearRest(); }
+  formatMMSS(sec) { const m = Math.floor(sec / 60), s = sec % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
+
+  setLoginRole(r) { this.setState({ loginRole: r, loginError: '' }); }
+  setLoginAthleteName(v) { this.setState({ loginAthleteName: v }); }
+  setLoginCoachEmail(v) { this.setState({ loginCoachEmail: v }); }
+  setLoginPassword(v) { this.setState({ loginPassword: v }); }
+  submitLogin() {
+    const { loginRole, loginAthleteName, loginCoachEmail, loginPassword, coaches } = this.state;
+    if (!loginPassword.trim()) { this.setState({ loginError: 'Enter a password to continue.' }); return; }
+    if (loginRole === 'athlete') {
+      const ath = this.state.roster.find(a => a.name === loginAthleteName);
+      this.setState({ authScreen: 'app', role: 'athlete', currentUserName: ath.name, loginError: '', loginPassword: '' });
+    } else {
+      const coach = coaches.find(c => c.email === loginCoachEmail);
+      if (!coach) { this.setState({ loginError: 'No coach account with that email.' }); return; }
+      this.setState({ authScreen: 'app', role: 'coach', currentUserName: coach.name, isHeadCoach: coach.head, loginError: '', loginPassword: '' });
+    }
+  }
+  logout() { this.setState({ authScreen: 'login', screen: 'tabs', activeTab: 'today', loginPassword: '', loginError: '' }); }
+  setNewCoachName(v) { this.setState({ newCoachName: v }); }
+  setNewCoachEmail(v) { this.setState({ newCoachEmail: v }); }
+  addCoach() {
+    const { newCoachName, newCoachEmail } = this.state;
+    if (!newCoachName.trim() || !newCoachEmail.trim()) return;
+    this.setState(s => ({ coaches: [...s.coaches, { name: newCoachName, email: newCoachEmail, head: false }], newCoachName: '', newCoachEmail: '' }));
+  }
+  removeCoach(email) { this.setState(s => ({ coaches: s.coaches.filter(c => c.email !== email) })); }
+  updateAthleteField(name, field, value) {
+    this.setState(s => ({ roster: s.roster.map(a => a.name === name ? { ...a, [field]: value } : a) }));
+  }
+  updateAthletePR(name, idx, field, value) {
+    this.setState(s => ({ roster: s.roster.map(a => a.name === name ? { ...a, prs: a.prs.map((p, i) => i === idx ? { ...p, [field]: value } : p) } : a) }));
+  }
+  addAthletePR(name) {
+    this.setState(s => ({ roster: s.roster.map(a => a.name === name ? { ...a, prs: [...a.prs, { event: '', mark: '' }] } : a) }));
+  }
+  setRole(role) { this.setState({ role }); }
+  selectTab(tab) { this.setState({ activeTab: tab }); }
+  selectDay(i) { this.setState({ selectedDayIndex: i }); }
+  patchSelectedDay(patch) {
+    this.setState(s => {
+      const weekDays = s.weekDays.map((d, i) => i === s.selectedDayIndex ? { ...d, ...patch } : d);
+      return { weekDays };
+    });
+  }
+  toggleSyncTarget(name) { this.setState(s => ({ syncTargets: { ...s.syncTargets, [name]: !s.syncTargets[name] } })); }
+  setWeekDifficulty(d) { this.setState({ weekDifficulty: d }); }
+  getWeekNumber() { const now = new Date(); const start = new Date(now.getFullYear(), 0, 1); return Math.floor((now - start) / 604800000); }
+  toggleAttendance(name) { this.setState(s => ({ attendance: { ...s.attendance, [name]: !s.attendance[name] } })); }
+  setGoalDraft(v) { this.setState({ goalDraft: v }); }
+  addGoal() {
+    if (!this.state.goalDraft.trim()) return;
+    this.setState(s => ({ goals: [...s.goals, { text: s.goalDraft, done: false }], goalDraft: '' }));
+  }
+  toggleGoal(i) { this.setState(s => ({ goals: s.goals.map((g, idx) => idx === i ? { ...g, done: !g.done } : g) })); }
+  setJournalDraft(v) { this.setState({ journalDraft: v }); }
+  saveJournalEntry() {
+    if (!this.state.journalDraft.trim()) return;
+    this.setState(s => ({ journalEntries: [{ athlete: 'You', date: 'Today', text: s.journalDraft }, ...s.journalEntries], journalDraft: '' }));
+  }
+  openFilm(id) { this.setState({ selectedFilmId: id, commentDraft: '' }); }
+  closeFilm() { this.setState({ selectedFilmId: null }); }
+  setCommentDraft(v) { this.setState({ commentDraft: v }); }
+  updateSelfReview(field, idx, value) {
+    this.setState(s => ({
+      films: s.films.map(f => {
+        if (f.id !== s.selectedFilmId) return f;
+        const list = f[field].slice();
+        list[idx] = value;
+        return { ...f, [field]: list };
+      }),
+    }));
+  }
+  addComment() {
+    if (!this.state.commentDraft.trim()) return;
+    this.setState(s => ({
+      films: s.films.map(f => f.id === s.selectedFilmId ? { ...f, comments: [...f.comments, { author: this.props.coachName ?? 'Coach', time: 'now', text: s.commentDraft }] } : f),
+      commentDraft: '',
+    }));
+  }
+
+  renderVals() {
+    const coachName = this.props.coachName ?? 'Coach Mia';
+    const { screen, activeTab, role, exIndex, setIndex, curWeight, curReps, logs, restActive, restRemaining, todayCompleted, workoutFinished, weekDays, selectedDayIndex, syncTargets, journalDraft, journalEntries, films, selectedFilmId, commentDraft, goals, goalDraft, weekDifficulty, authScreen, loginRole, loginAthleteName, loginCoachEmail, loginPassword, loginError, currentUserName, isHeadCoach, coaches, newCoachName, newCoachEmail, roster } = this.state;
+    const isAthleteRole = role === 'athlete', isCoachRole = role === 'coach';
+    const loggedInAthlete = roster.find(a => a.name === currentUserName);
+    const athleteGroup = loggedInAthlete ? loggedInAthlete.group : (this.props.athleteGroup ?? 'Short Sprinters');
+    const EX_LIST = this.getExercises();
+
+    const loginAthleteOptions = roster.map((a, i) => ({ key: i, value: a.name }));
+    const loginCoachOptions = coaches.map((c, i) => ({ key: i, value: c.email, label: `${c.name} (${c.email})` }));
+    const coachesView = coaches.map((c, i) => ({ key: i, name: c.name, email: c.email, badge: c.head ? 'Head Coach' : 'Assistant Coach', badgeCls: c.head ? 'tag-accent' : 'tag-neutral', canRemove: !c.head, onRemove: () => this.removeCoach(c.email) }));
+
+    const versePool = VERSES_BY_DIFFICULTY[weekDifficulty] ?? VERSES_BY_DIFFICULTY.medium;
+    const verse = versePool[new Date().getDate() % versePool.length];
+    const quotePool = QUOTES_BY_DIFFICULTY[weekDifficulty] ?? QUOTES_BY_DIFFICULTY.medium;
+    const quote = quotePool[this.getWeekNumber() % quotePool.length];
+    const diffColors = { easy: '#3f9142', medium: '#d4af37', hard: '#b8323f' };
+    const diffColor = diffColors[weekDifficulty];
+
+    const todayExercises = EX_LIST.map((e, i) => {
+      const log = logs[i] || [];
+      const done = log.length > 0 && log.every(s => s.done);
+      const metaLabel = e.unitType === 'sprint' ? `${e.sets} reps × ${e.distanceLabel} · target ${e.timeSec}s`
+        : e.unitType === 'time' ? `${e.sets} × ${e.reps}s hold`
+        : `${e.sets} sets × ${e.reps} reps · ${this.displayWeight(e.weight)} lb`;
+      return { key: i, name: e.name, tag: e.tag, metaLabel, done, notDone: !done, onClick: () => this.startWorkout(i) };
+    });
+
+    const rosterGroups = GROUPS.map((g, gi) => ({
+      key: gi, name: g,
+      athletes: ROSTER_SEED.filter(a => a.group === g).map((a, i) => ({
+        key: i, name: a.name,
+        statusLabel: a.status === 'done' ? 'Completed' : a.status === 'progress' ? 'In progress' : 'Not started',
+        tagClass: a.status === 'done' ? 'tag-accent' : a.status === 'progress' ? 'tag-outline' : 'tag-neutral',
+        present: !!this.state.attendance[a.name],
+        attendanceLabel: this.state.attendance[a.name] ? '✓ Present' : 'Mark present',
+        attendanceCls: this.state.attendance[a.name] ? 'btn-primary' : 'btn-secondary',
+        onToggleAttendance: () => this.toggleAttendance(a.name),
+      })),
+    }));
+    const presentCount = ROSTER_SEED.filter(a => this.state.attendance[a.name]).length;
+    const activityList = ROSTER_SEED.map((a, i) => ({
+      key: i, name: a.name, online: a.online,
+      statusText: a.online ? `Online · ${a.sessionMin} min` : `Last active ${a.lastActive}`,
+      dotColor: a.online ? '#3f9142' : 'var(--color-neutral-600)',
+    }));
+    const onlineCount = ROSTER_SEED.filter(a => a.online).length;
+
+    const ex = EX_LIST[exIndex];
+    const setsView = Array.from({ length: ex.sets }, (_, i) => {
+      const s = logs[exIndex][i];
+      const isDone = i < setIndex || (i === setIndex && workoutFinished && s.done);
+      const isCurrent = i === setIndex && !workoutFinished;
+      let valueLabel;
+      if (isDone) valueLabel = ex.unitType === 'sprint' ? `${s.timeSec.toFixed(1)}s` : ex.unitType === 'time' ? `${s.reps}s hold` : `${this.displayWeight(s.weight)} lb × ${s.reps}`;
+      else if (isCurrent) valueLabel = ex.unitType === 'sprint' ? `${curReps.toFixed(1)}s` : ex.unitType === 'time' ? `${curReps}s hold` : `${this.displayWeight(curWeight)} lb × ${curReps}`;
+      else valueLabel = ex.unitType === 'sprint' ? `${ex.timeSec.toFixed(1)}s target` : ex.unitType === 'time' ? `${ex.reps}s hold` : `${this.displayWeight(ex.weight)} lb × ${ex.reps}`;
+      return {
+        key: i, n: `Set ${i + 1}`, valueLabel, isDone, isCurrent,
+        bg: isCurrent ? 'var(--color-surface)' : isDone ? 'var(--color-accent-900)' : 'transparent',
+        opacity: isCurrent || isDone ? 1 : 0.55,
+        textColor: isCurrent ? 'var(--color-text)' : isDone ? 'var(--color-accent-300)' : 'var(--color-neutral-500)',
+      };
+    });
+
+    let nextExerciseLabel = null;
+    if (!workoutFinished) {
+      const isLastSetOfEx = setIndex === ex.sets - 1;
+      if (isLastSetOfEx && exIndex + 1 < EX_LIST.length) nextExerciseLabel = EX_LIST[exIndex + 1].name;
+    }
+    const totalSetsLogged = logs.reduce((sum, a) => sum + a.filter(s => s.done).length, 0);
+
+    const weeklyBars = [0.55, 0.8, 0.35, 0.95, 0.5, 0.2, 0.1].map((pct, i) => ({ key: i, label: 'MTWTFSS'[i], heightPx: Math.round(pct * 60), color: i === 3 ? 'var(--color-accent)' : 'var(--color-neutral-800)' }));
+
+    const birthdaysThisWeek = roster.filter(a => a.birthMonth === 'Aug' && weekDays.some(d => d.date === a.birthDay));
+    const weekDaysView = weekDays.map((d, i) => {
+      const selected = i === selectedDayIndex;
+      const bday = roster.find(a => a.birthMonth === 'Aug' && a.birthDay === d.date);
+      const dotColor = bday ? '#d4af37' : d.type === 'training' ? 'var(--color-accent)' : d.type === 'meet' ? 'var(--color-accent-2-400)' : 'var(--color-neutral-600)';
+      return {
+        key: i, label: d.label, date: d.date, dotColor, onClick: () => this.selectDay(i), birthdayName: bday ? bday.name : null,
+        bg: selected ? 'var(--color-surface)' : 'transparent',
+        shadow: selected ? '0 0 0 1px var(--color-accent)' : '0 0 0 1px var(--color-neutral-800)',
+      };
+    });
+    const sd = weekDays[selectedDayIndex];
+    const todayBirthday = roster.find(a => a.birthMonth === 'Aug' && a.birthDay === weekDays.find(d => d.isToday).date);
+    const typeLabels = { training: 'Training', rest: 'Rest Day', meet: 'Meet', other: 'Other Activity' };
+    const selDay = {
+      typeLabel: typeLabels[sd.type] + (sd.type === 'training' ? (sd.subtype === 'track' ? ' · Track' : ' · Weight Room') : ''),
+      tagClass: sd.type === 'training' ? 'tag-accent' : sd.type === 'meet' ? 'tag-accent-2' : sd.type === 'other' ? 'tag-outline' : 'tag-neutral',
+      isTraining: sd.type === 'training', isRest: sd.type === 'rest', isMeet: sd.type === 'meet', isOther: sd.type === 'other', notRest: sd.type !== 'rest',
+      isWeightroom: sd.subtype === 'weightroom', isTrack: sd.subtype === 'track',
+      summary: sd.summary ?? '', restNote: sd.restNote ?? '',
+      location: sd.location ?? '', warmup: sd.warmup ?? '', drills: sd.drills ?? '', workout: sd.workout ?? '', post: sd.post ?? '', notes: sd.notes ?? '',
+      birthdayName: (roster.find(a => a.birthMonth === 'Aug' && a.birthDay === sd.date) || {}).name || null,
+    };
+
+    const canEditTeam = isCoachRole;
+    const teamGroups = GROUPS.map((g, gi) => ({
+      key: gi, name: g,
+      athletes: roster.filter(a => a.group === g).map((a, i) => ({
+        key: i, name: a.name, bio: a.bio, birthdayLabel: `${a.birthMonth} ${a.birthDay}`,
+        isSelf: a.name === currentUserName,
+        canEdit: canEditTeam || a.name === currentUserName,
+        notEditable: !(canEditTeam || a.name === currentUserName),
+        onBioChange: v => this.updateAthleteField(a.name, 'bio', v),
+        prs: a.prs.map((p, pi) => ({
+          key: pi, event: p.event, mark: p.mark,
+          onEventChange: v => this.updateAthletePR(a.name, pi, 'event', v),
+          onMarkChange: v => this.updateAthletePR(a.name, pi, 'mark', v),
+        })),
+        onAddPR: () => this.addAthletePR(a.name),
+      })),
+    }));
+
+    const goalsView = goals.map((g, i) => ({
+      key: i, text: g.text, done: g.done, onClick: () => this.toggleGoal(i),
+      textStyle: g.done ? 'text-decoration:line-through;color:var(--color-neutral-500);' : 'color:var(--color-text);',
+      checkBg: g.done ? 'var(--color-accent-2)' : 'transparent',
+      checkMark: g.done ? '✓' : '',
+    }));
+
+    const myEntries = journalEntries.filter(e => e.athlete === 'You').map((e, i) => ({ key: i, ...e }));
+    const allEntries = journalEntries.map((e, i) => ({ key: i, ...e }));
+
+    const filmList = films.map(f => ({ key: f.id, id: f.id, title: f.title, athlete: f.athlete, date: f.date, commentCountLabel: `${f.comments.length} note${f.comments.length === 1 ? '' : 's'}`, onClick: () => this.openFilm(f.id) }));
+    const selectedFilmRaw = films.find(f => f.id === selectedFilmId);
+    const selectedFilm = selectedFilmRaw ? {
+      ...selectedFilmRaw,
+      comments: selectedFilmRaw.comments.map((c, i) => ({ key: i, ...c })), hasNoComments: selectedFilmRaw.comments.length === 0,
+      workedRows: selectedFilmRaw.worked.map((v, i) => ({ key: i, value: v, onChange: val => this.updateSelfReview('worked', i, val) })),
+      improveRows: selectedFilmRaw.improve.map((v, i) => ({ key: i, value: v, onChange: val => this.updateSelfReview('improve', i, val) })),
+      workedFilled: selectedFilmRaw.worked.filter(Boolean).map((v, i) => ({ key: i, value: v })),
+      improveFilled: selectedFilmRaw.improve.filter(Boolean).map((v, i) => ({ key: i, value: v })),
+    } : null;
+
+    const isTabs = screen === 'tabs';
+
+    return {
+      isLoggedIn: authScreen === 'app', isLoginScreen: authScreen === 'login',
+      loginIsAthlete: loginRole === 'athlete', loginIsCoach: loginRole === 'coach',
+      setLoginRoleAthlete: () => this.setLoginRole('athlete'), setLoginRoleCoach: () => this.setLoginRole('coach'),
+      loginAthleteOptions, loginAthleteName, setLoginAthleteName: v => this.setLoginAthleteName(v),
+      loginCoachOptions, loginCoachEmail, setLoginCoachEmail: v => this.setLoginCoachEmail(v),
+      loginPassword, setLoginPassword: v => this.setLoginPassword(v), submitLogin: () => this.submitLogin(),
+      hasLoginError: !!loginError, loginError,
+      currentUserName, isHeadCoach, logoutHandler: () => this.logout(),
+      coachesView, newCoachName, setNewCoachName: v => this.setNewCoachName(v), newCoachEmail, setNewCoachEmail: v => this.setNewCoachEmail(v), addCoachHandler: () => this.addCoach(),
+      teamGroups,
+      todayBirthday: todayBirthday ? todayBirthday.name : null, hasTodayBirthday: !!todayBirthday,
+      showChrome: isTabs,
+      isAthleteRole, isCoachRole,
+      setRoleAthlete: () => this.setRole('athlete'), setRoleCoach: () => this.setRole('coach'),
+      isTabToday: isTabs && activeTab === 'today', isTabCalendar: isTabs && activeTab === 'calendar', isTabJournal: isTabs && activeTab === 'journal', isTabFilm: isTabs && activeTab === 'film', isTabTeam: isTabs && activeTab === 'team',
+      goToday: () => this.selectTab('today'), goCalendar: () => this.selectTab('calendar'), goJournal: () => this.selectTab('journal'), goFilm: () => this.selectTab('film'), goTeam: () => this.selectTab('team'),
+      tabColorToday: activeTab === 'today' ? 'var(--color-accent)' : 'var(--color-neutral-600)',
+      tabColorCalendar: activeTab === 'calendar' ? 'var(--color-accent)' : 'var(--color-neutral-600)',
+      tabColorJournal: activeTab === 'journal' ? 'var(--color-accent)' : 'var(--color-neutral-600)',
+      tabColorFilm: activeTab === 'film' ? 'var(--color-accent)' : 'var(--color-neutral-600)',
+      tabColorTeam: activeTab === 'team' ? 'var(--color-accent)' : 'var(--color-neutral-600)',
+      verseText: verse.text, verseRef: verse.ref,
+      quoteText: quote.text, quoteAuthor: quote.author,
+      weekDifficulty, diffColor, diffLabel: { easy: 'Easy Week', medium: 'Medium Week', hard: 'Hard Week' }[weekDifficulty],
+      isEasyWeek: weekDifficulty === 'easy', isMediumWeek: weekDifficulty === 'medium', isHardWeek: weekDifficulty === 'hard',
+      setWeekEasy: () => this.setWeekDifficulty('easy'), setWeekMedium: () => this.setWeekDifficulty('medium'), setWeekHard: () => this.setWeekDifficulty('hard'),
+      easyBtnStyle: weekDifficulty === 'easy' ? 'background:#3f9142;color:#fff;border-color:#3f9142;' : 'background:transparent;color:#3f9142;border-color:#3f9142;',
+      mediumBtnStyle: weekDifficulty === 'medium' ? 'background:#d4af37;color:#241014;border-color:#d4af37;' : 'background:transparent;color:#d4af37;border-color:#d4af37;',
+      hardBtnStyle: weekDifficulty === 'hard' ? 'background:#b8323f;color:#fff;border-color:#b8323f;' : 'background:transparent;color:#b8323f;border-color:#b8323f;',
+      coachName, weekLabel: 'Week 6 · Day 3', dayTitle: 'Squat Focus',
+      todayCompleted, notTodayCompleted: !todayCompleted,
+      startWorkoutHandler: () => this.startWorkout(this.firstIncompleteIndex()),
+      exerciseCount: EX_LIST.length, todayExercises, athleteGroup,
+      goalsView, goalDraft, setGoalDraft: v => this.setGoalDraft(v), addGoal: () => this.addGoal(),
+      streakLabel: '12 days', adherenceLabel: '92%', weeklyBars, rosterGroups,
+      attendanceSummary: `${presentCount} / ${ROSTER_SEED.length} at practice today`,
+      activityList, onlineSummary: `${onlineCount} online now`,
+      weekDays: weekDaysView, selDay,
+      setDayTraining: () => this.patchSelectedDay({ type: 'training' }), setDayRest: () => this.patchSelectedDay({ type: 'rest' }), setDayMeet: () => this.patchSelectedDay({ type: 'meet' }), setDayOther: () => this.patchSelectedDay({ type: 'other' }),
+      setSubtypeWeightroom: () => this.patchSelectedDay({ subtype: 'weightroom' }), setSubtypeTrack: () => this.patchSelectedDay({ subtype: 'track' }),
+      updateSummary: v => this.patchSelectedDay({ summary: v }), updateRestNote: v => this.patchSelectedDay({ restNote: v }),
+      updateLocation: v => this.patchSelectedDay({ location: v }), updateWarmup: v => this.patchSelectedDay({ warmup: v }), updateDrills: v => this.patchSelectedDay({ drills: v }),
+      updateWorkout: v => this.patchSelectedDay({ workout: v }), updatePost: v => this.patchSelectedDay({ post: v }), updateNotes: v => this.patchSelectedDay({ notes: v }),
+      syncTargets: {
+        apple: { active: syncTargets.apple, label: syncTargets.apple ? '✓ Apple Calendar' : 'Apple Calendar', cls: syncTargets.apple ? 'btn-primary' : 'btn-secondary', onClick: () => this.toggleSyncTarget('apple') },
+        google: { active: syncTargets.google, label: syncTargets.google ? '✓ Google Calendar' : 'Google Calendar', cls: syncTargets.google ? 'btn-primary' : 'btn-secondary', onClick: () => this.toggleSyncTarget('google') },
+        android: { active: syncTargets.android, label: syncTargets.android ? '✓ Android Calendar' : 'Android Calendar', cls: syncTargets.android ? 'btn-primary' : 'btn-secondary', onClick: () => this.toggleSyncTarget('android') },
+      },
+      journalDraft, setJournalDraft: v => this.setJournalDraft(v), saveJournalEntry: () => this.saveJournalEntry(), myEntries, allEntries,
+      filmListView: !selectedFilmId, filmDetailView: !!selectedFilmId, filmList, selectedFilm,
+      openFilm: id => this.openFilm(id), closeFilm: () => this.closeFilm(),
+      commentDraft, setCommentDraft: v => this.setCommentDraft(v), addComment: () => this.addComment(),
+      isWorkout: screen === 'workout', workoutFinished, workoutActive: !workoutFinished,
+      exPosLabel: `${exIndex + 1} / ${EX_LIST.length}`, currentTag: ex.tag, currentExerciseName: ex.name,
+      restActive, restLabel: this.formatMMSS(restRemaining), skipRestHandler: () => this.skipRest(),
+      setsView,
+      decHandler: () => ex.unitType === 'weight' ? this.adjustWeight(-5) : this.adjustReps(ex.unitType === 'sprint' ? -0.1 : -5),
+      incHandler: () => ex.unitType === 'weight' ? this.adjustWeight(5) : this.adjustReps(ex.unitType === 'sprint' ? 0.1 : 5),
+      hasNextLabel: !!nextExerciseLabel, nextExerciseLabel, logSetHandler: () => this.logSet(), exitHandler: () => this.exitWorkout(), finishHandler: () => this.finishWorkout(),
+      summaryText: `${EX_LIST.length} exercises · ${totalSetsLogged} sets logged`,
+    };
+  }
+}
+</script>
+</body>
+</html>
